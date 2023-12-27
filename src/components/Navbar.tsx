@@ -17,10 +17,9 @@ import BoardTitle from "./BoardTitle";
 import { useBoardStore } from "@/store/boardStore";
 
 const Navbar = () => {
-
   const [openBoardModal, setOpenBoardModal] = useState(false);
 
-  const {boards, activeBoard, setActiveBoard} = useBoardStore()
+  const { boards, activeBoard, setActiveBoard } = useBoardStore();
 
   return (
     <div className="p-4 flex items-center justify-between bg-white dark:bg-[#2B2C37]">
@@ -57,7 +56,7 @@ const Navbar = () => {
               </DialogTitle>
               <div className="pt-[1.19rem] text-left text-[0.9375rem] font-bold leading-normal">
                 {boards.map((title) => (
-                  <div
+                  <div key={title as string}
                     className={`p-1 pl-6 flex items-center gap-3 rounded-r-[6.25rem] ${
                       activeBoard === title
                         ? "bg-primary text-primary-foreground"
