@@ -23,6 +23,7 @@ export function ThemeToggle() {
             onClick={() => setTheme(themeValue)}
             value={themeValue}
             id={themeValue}
+            key={themeValue}
           />
         ))}
         <div
