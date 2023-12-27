@@ -31,7 +31,7 @@ const Navbar = () => {
             onClick={() => setOpenBoardModal((prev) => !prev)}
           >
             <h1 className="text-[1.125rem] font-bold leading-normal">
-              Platform launch
+              {activeBoard}
             </h1>
             <ChevronDown
               className={`text-primary transition-all duration-700 ${
