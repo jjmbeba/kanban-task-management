@@ -1,8 +1,5 @@
 "use client";
 
-import { ChevronDown, MoreVertical, Plus } from "lucide-react";
-import Image from "next/image";
-import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,17 +7,23 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { ChevronDown, LayoutDashboard, MoreVertical, Plus } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
+import { Button } from "./ui/button";
+import BoardTitle from "./BoardTitle";
+import { useBoardStore } from "@/store/boardStore";
 
 const Navbar = () => {
+
   const [openBoardModal, setOpenBoardModal] = useState(false);
 
+  const {boards, activeBoard, setActiveBoard} = useBoardStore()
+
   return (
-    <div className="p-4 flex items-center justify-between bg-white">
+    <div className="p-4 flex items-center justify-between bg-white dark:bg-[#2B2C37]">
       <div className="flex items-center">
         <Image src={"/logo.svg"} alt="logo" width={24} height={24} />
         <div className="ml-4 flex items-center gap-2">
@@ -47,37 +50,36 @@ const Navbar = () => {
           <MoreVertical />
         </Button>
         <Dialog open={openBoardModal} onOpenChange={setOpenBoardModal}>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="max-w-[16.5rem] rounded-[0.5rem] bg-white dark:bg-background border-none">
             <DialogHeader>
-              <DialogTitle>Edit profile</DialogTitle>
-              <DialogDescription>
-                Make changes to your profile here. Click save when you're done.
-              </DialogDescription>
+              <DialogTitle className="pl-6 text-left text-secondary text-[0.75rem] leading-[0.15rem] tracking-[0.15rem] font-bold">
+                ALL BOARDS ({boards.length})
+              </DialogTitle>
+              <div className="pt-[1.19rem] text-left text-[0.9375rem] font-bold leading-normal">
+                {boards.map((title) => (
+                  <div
+                    className={`p-1 pl-6 flex items-center gap-3 rounded-r-[6.25rem] ${
+                      activeBoard === title
+                        ? "bg-primary text-primary-foreground"
+                        : "text-secondary"
+                    }`}
+                    onClick={() => setActiveBoard(title)}
+                  >
+                    <LayoutDashboard />
+                    <BoardTitle title={title} />
+                  </div>
+                ))}
+                <div
+                  className={`p-1 pl-6 flex items-center gap-3 rounded-r-[6.25rem]} text-primary`}
+                >
+                  <LayoutDashboard />
+                  +Create New Board
+                </div>
+              </div>
             </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  defaultValue="Pedro Duarte"
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="username" className="text-right">
-                  Username
-                </Label>
-                <Input
-                  id="username"
-                  defaultValue="@peduarte"
-                  className="col-span-3"
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit">Save changes</Button>
+
+            <DialogFooter className="pl-6">
+              <ThemeToggle />
             </DialogFooter>
           </DialogContent>
         </Dialog>
