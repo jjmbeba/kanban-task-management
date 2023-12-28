@@ -3,9 +3,8 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Switch } from "./ui/switch";
 import { useEffect, useState } from "react";
+import { Switch } from "./ui/switch";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
