@@ -3,18 +3,17 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
+import { useBoardStore } from "@/store/boardStore";
 import { ChevronDown, LayoutDashboard, MoreVertical, Plus } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
+import BoardTitle from "./BoardTitle";
+import Logo from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
-import BoardTitle from "./BoardTitle";
-import { useBoardStore } from "@/store/boardStore";
 
 const Navbar = () => {
   const [openBoardModal, setOpenBoardModal] = useState(false);
@@ -22,13 +21,14 @@ const Navbar = () => {
   const { boards, activeBoard, setActiveBoard } = useBoardStore();
 
   return (
-    <div className="p-4 flex items-center justify-between bg-white dark:bg-[#2B2C37]">
-      <div className="flex items-center">
-        <Image src={"/logo.svg"} alt="logo" width={24} height={24} />
+    <div className="flex items-center justify-between bg-white dark:bg-[#2B2C37] md:border-b md:border-b-dark">
+      <div className="[&>*]:py-4 px-4 flex items-center">
+        <Logo className="md:border-r border-r-dark md:pr-[1.53rem]" />
         <div className="ml-4 flex items-center gap-2">
           <Button
             variant={"ghost"}
             onClick={() => setOpenBoardModal((prev) => !prev)}
+            className="md:hidden"
           >
             <h1 className="text-[1.125rem] font-bold leading-normal">
               {activeBoard}
@@ -39,11 +39,15 @@ const Navbar = () => {
               }`}
             />
           </Button>
+          <h1 className="hidden md:block text-[1.125rem] font-bold leading-normal">
+            {activeBoard}
+          </h1>
         </div>
       </div>
       <div className="flex items-center">
-        <Button className="opacity-25">
+        <Button>
           <Plus />
+          <span className="hidden md:block text-[0.9375rem] leading-normal font-bold">Add New Task</span>
         </Button>
         <Button variant={"ghost"} size={"icon"} className="text-[#828FA3]">
           <MoreVertical />
@@ -56,13 +60,17 @@ const Navbar = () => {
               </DialogTitle>
               <div className="pt-[1.19rem] text-left text-[0.9375rem] font-bold leading-normal">
                 {boards.map((title) => (
-                  <div key={title as string}
+                  <div
+                    key={title as string}
                     className={`p-1 pl-6 flex items-center gap-3 rounded-r-[6.25rem] ${
                       activeBoard === title
                         ? "bg-primary text-primary-foreground"
                         : "text-secondary"
                     }`}
-                    onClick={() => setActiveBoard(title)}
+                    onClick={() => {
+                      setActiveBoard(title);
+                      setOpenBoardModal(false);
+                    }}
                   >
                     <LayoutDashboard />
                     <BoardTitle title={title} />
@@ -76,7 +84,6 @@ const Navbar = () => {
                 </div>
               </div>
             </DialogHeader>
-
             <DialogFooter className="pl-6">
               <ThemeToggle />
             </DialogFooter>
