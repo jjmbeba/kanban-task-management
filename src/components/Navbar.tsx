@@ -8,13 +8,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useBoardStore } from "@/store/boardStore";
-import { ChevronDown, LayoutDashboard, MoreVertical, Plus } from "lucide-react";
+import { ChevronDown, MoreVertical, Plus } from "lucide-react";
 import { useState } from "react";
-import BoardTitle from "./BoardTitle";
+import BoardList from "./BoardList";
 import Logo from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
-import BoardList from "./BoardList";
 
 const Navbar = () => {
   const [openBoardModal, setOpenBoardModal] = useState(false);
@@ -32,7 +31,7 @@ const Navbar = () => {
             className="md:hidden"
           >
             <h1 className="text-[1.125rem] font-bold leading-normal">
-              {activeBoard}
+              {activeBoard.title}
             </h1>
             <ChevronDown
               className={`text-primary transition-all duration-700 ${
@@ -41,12 +40,12 @@ const Navbar = () => {
             />
           </Button>
           <h1 className="hidden md:block text-[1.125rem] font-bold leading-normal">
-            {activeBoard}
+            {activeBoard.title}
           </h1>
         </div>
       </div>
       <div className="flex items-center">
-        <Button>
+        <Button disabled={activeBoard.columns.length === 0}>
           <Plus />
           <span className="hidden md:block text-[0.9375rem] leading-normal font-bold">
             Add New Task

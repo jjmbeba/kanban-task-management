@@ -26,20 +26,20 @@ const BoardList = ({className,customTitle,  ...props}:Props) => {
         </h2>
       )}
       <div className="pt-[1.19rem] text-left text-[0.9375rem] font-bold leading-normal">
-        {boards.map((title) => (
+        {boards.map((board) => (
           <div
-            key={title as string}
-            className={`p-1 pl-6 flex items-center gap-3 rounded-r-[6.25rem] ${
-              activeBoard === title
+            key={board.title as string}
+            className={`p-1 pl-6 flex items-center gap-3 rounded-r-[6.25rem] cursor-pointer ${
+              activeBoard.title === board.title
                 ? "bg-primary text-primary-foreground"
                 : "text-secondary"
             }`}
             onClick={() => {
-              setActiveBoard(title);
+              setActiveBoard(board);
             }}
           >
             <LayoutDashboard />
-            <BoardTitle title={title} />
+            <BoardTitle title={board.title} />
           </div>
         ))}
         <div

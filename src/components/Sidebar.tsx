@@ -24,10 +24,10 @@ const Sidebar = () => {
             <Logo />
           </SheetHeader>
           <BoardList className="pt-[3.38rem]" />
-          <SheetFooter className="flex md:flex-col bottom-0">
+          <SheetFooter className="w-full flex md:flex-col items-center absolute bottom-[10dvh] left-1/3 translate-x-[-50%]">
             <ThemeToggle />
             <SheetClose asChild>
-              <div className="pl-[1.62rem] flex items-center gap-[0.63rem] text-secondary text-[0.9375rem] leading-normal font-bold cursor-pointer">
+              <div className="flex items-center gap-[0.63rem] text-secondary text-[0.9375rem] leading-normal font-bold cursor-pointer">
                 <EyeOffIcon size={16} />
                 Hide Sidebar
               </div>
